@@ -233,7 +233,7 @@ function handleTouchMove(evt) {
         if ( yDiff > 0 ) {
             download() 
         } else { 
-            copyLink()
+            download() 
         }                                                                 
     }
     /* reset values */
