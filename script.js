@@ -25,6 +25,17 @@ const centerSlideZoomedClass = `${commonClass} duration-[${duration}ms] w-[100%]
 
 const imgClass = `h-full w-full object-cover pointer-events-none`;
 
+const createBackDrop = () => {
+    const backDiv = document.createElement('div');
+    backDiv.id = 'backDrop'
+    backDiv.className = 'absolute bg-black left-0 top-0 right-0 bottom-0 opacity-90 z-[2]';
+    document.body.append(backDiv)
+}
+const removeBackDrop = () => {
+    const backDiv = document.getElementById('backDrop');
+    if(backDiv) backDiv.remove()
+}
+
 const assignEventListeners = () => {
     const leftDiv = imgContainerDiv.querySelectorAll('div')[0];
     const centerDiv = imgContainerDiv.querySelectorAll('div')[1];
@@ -39,12 +50,10 @@ const assignEventListeners = () => {
     centerDiv.replaceWith(clone)
     clone.addEventListener('click', (e)=>{
         const elem = e.target;
-        const backDiv = document.createElement('div');
-        backDiv.id = 'backDrop'
-        backDiv.className = 'absolute bg-black left-0 top-0 right-0 bottom-0 opacity-90 z-[2]';
+
 
         if (elem.classList == centerSlideZoomedClass) {
-            document.getElementById('backDrop').remove()
+            removeBackDrop();
             elem.classList.add('opacity-0')
             elem.querySelector('img').classList.replace('object-contain', 'object-cover')
             elem.classList = centerSlideClass;
@@ -52,7 +61,7 @@ const assignEventListeners = () => {
 
         }
         else { 
-            document.body.append(backDiv)
+            createBackDrop()
             elem.classList.add('opacity-0')
             elem.querySelector('img').src = slides[currentSlideIndex].largeImageURL;
             elem.querySelector('img').classList.replace('object-cover', 'object-contain')
@@ -68,7 +77,7 @@ const assignEventListeners = () => {
 
 const showNext = () => {
     if (!window.animatingSlides){
-        document.getElementById('backDrop').remove()
+        removeBackDrop()
         currentSlideIndex++;
         if(currentSlideIndex > slides.length - 1 ) currentSlideIndex = 0;
         window.animatingSlides = true;
@@ -93,7 +102,7 @@ const showNext = () => {
 }
 const showPrev = () => {
     if (!window.animatingSlides){
-        document.getElementById('backDrop').remove()
+        removeBackDrop();
         window.animatingSlides = true;
         currentSlideIndex--;
         if(currentSlideIndex < 0 ) currentSlideIndex = slides.length - 1 ;
