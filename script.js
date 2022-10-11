@@ -206,4 +206,12 @@ reloadBtn.addEventListener('click', reload)
 // Make Initial Search
 search()
 
+// Resize hack for mobile Safari for 100vh
+const resizeVh = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+resizeVh();
+//
+
 
