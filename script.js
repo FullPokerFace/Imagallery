@@ -1,20 +1,20 @@
-let slides = [];
-let searchTerm = ''
-
-
 const nextBtn = document.getElementById('nextBtn');
 const prevBtn = document.getElementById('prevBtn');
+const copyLinkBtn = document.getElementById('copyLinkBtn');
+const downloadBtn = document.getElementById('downloadBtn');
 const imgContainerDiv = document.getElementById('imgContainerDiv');
 const searchForm = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
+const reloadBtn = document.getElementById('reloadBtn');
 
+let slides = [];
+let searchTerm = ''
 const duration = 300;
 const SLIDES_PER_SCREEN = 3;
-
 let currentSlideIndex = 0;
 
+// Classes
 const commonClass = 'overflow-hidden flex justify-center items-center text-5xl transition-all absolute rounded-2xl cursor-pointer shadow-xl select-none'
-
 const leftSlideDisappearClass = `${commonClass} duration-[${duration}ms] w-[10%] h-[10%] -left-[10%] top-[50%] -translate-x-[50%] -translate-y-[50%] opacity-0`;
 const leftSlideClass = `${commonClass} duration-[${duration}ms] w-[10%] h-[10%] left-[10%] top-[50%] -translate-x-[50%] -translate-y-[50%] opacity-50`;
 const centerSlideClass = `${commonClass} duration-[${duration}ms] w-[60%] h-[60%] left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] z-10`;
@@ -40,7 +40,10 @@ const assignEventListeners = () => {
     clone.addEventListener('click', (e)=>{
         const elem = e.target;
         if (elem.classList == centerSlideZoomedClass) elem.classList = centerSlideClass;
-        else { elem.classList = centerSlideZoomedClass; }
+        else { 
+            elem.querySelector('img').src = slides[currentSlideIndex].largeImageURL;
+            elem.classList = centerSlideZoomedClass; 
+        }
      })
 
     clone = rightDiv.cloneNode(true);
@@ -100,7 +103,7 @@ const showPrev = () => {
 const createImageFromSlides = (index) => {
     let img;
     img = document.createElement('img');
-    img.src= slides[index]
+    img.src= slides[index].webformatURL
     img.className = imgClass;
     return img;
 }
@@ -141,10 +144,12 @@ const search = async (e) => {
     if (searchInput?.value && searchInput?.value === searchTerm) return
     if (searchInput?.value ) { searchTerm = searchInput?.value }
     else { 
-        const wordResponse = await fetch('https://random-word-api.herokuapp.com/word')
+        const wordResponse = await fetch('./assets/jsons/countries.json')
         const data = await wordResponse.json();
-        searchInput.value = data[0]
-        searchTerm = data[0]
+        const randomIndex = Math.floor(Math.random() * (data.length - 0 + 1)) + 0;
+        const randomCountry = data[randomIndex].name
+        searchInput.value = randomCountry
+        searchTerm = randomCountry
     }
 
     const response = await fetch(`https://pixabay.com/api/?key=14648474-f85b08a1dc4b9a00f47b281de&q=${searchTerm.split(' ').join('+')}&image_type=photo&pretty=true`)
@@ -154,16 +159,38 @@ const search = async (e) => {
         showNoResults();
         return
     }
-    slides = data.hits.map(({ webformatURL }) => webformatURL)
+    slides = data.hits;
     createInitialSlides()
 }
 
+const copyLink = () => {
+    navigator.clipboard.writeText(slides[currentSlideIndex].largeImageURL)
+    
+}
 
+const download = () => {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = slides[currentSlideIndex].largeImageURL;
+    downloadLink.download = slides[currentSlideIndex].largeImageURL;
+    document.body.append(downloadLink);
+    downloadLink.click();
+    downloadLink.remove()
+}
 
-search()
+const reload = () => {
+    searchInput.value = '';
+    reload();
+}
+
 
 nextBtn.addEventListener('click', showNext)
 prevBtn.addEventListener('click', showPrev)
 searchForm.addEventListener('submit', search)
+copyLinkBtn.addEventListener('click', copyLink)
+downloadBtn.addEventListener('click', download)
+reloadBtn.addEventListener('click', reload)
+
+// Make Initial Search
+search()
 
 
