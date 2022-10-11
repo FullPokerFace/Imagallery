@@ -231,9 +231,9 @@ function handleTouchMove(evt) {
         }                       
     } else {
         if ( yDiff > 0 ) {
-            download() 
+            //Swipe Down
         } else { 
-            download() 
+            //Swipe Up
         }                                                                 
     }
     /* reset values */
