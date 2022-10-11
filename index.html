@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <script src="script.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            /* outline: dashed 1px rgba(255, 255, 255, 0.5); */
+        }
+    </style>
+</head>
+
+<body>
+    <main class="flex bg-zinc-100 min-h-screen min-w-full p-6 text-slate-50 ">
+        <div class="flex flex-1 flex-col overflow-hidden">
+            <div class="w-full flex justify-center gap-10 p-4">
+                <form action="#" id="searchForm" class="flex flex-wrap gap-2 justify-center w-full max-w-md">
+                    <input type="text" id="searchInput"
+                        class="border-slate-900 text-slate-900 flex-[6] border px-4 py-2 rounded select-none">
+                    <button
+                        class="bg-slate-900 px-10 py-2 hover:bg-slate-700 rounded select-none flex-[2] ">SEARCH</button>
+                </form>
+            </div>
+            <div id="imgContainerDiv" class="relative h-full text-3xl"></div>
+            <div class="w-full flex justify-center gap-10 p-4">
+                <button id="prevBtn"
+                    class="bg-slate-900 px-10 py-2 hover:bg-slate-700 rounded select-none">PREV</button>
+                <button id="nextBtn"
+                    class="bg-slate-900 px-10 py-2 hover:bg-slate-700 rounded select-none">NEXT</button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
