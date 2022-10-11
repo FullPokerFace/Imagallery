@@ -195,8 +195,8 @@ const reload = () => {
     reload();
 }
 
-document.addEventListener('touchstart', handleTouchStart, false);        
-document.addEventListener('touchmove', handleTouchMove, false);
+imgContainerDiv.addEventListener('touchstart', handleTouchStart, false);        
+imgContainerDiv.addEventListener('touchmove', handleTouchMove, false);
 
 var xDown = null;                                                        
 var yDown = null;
