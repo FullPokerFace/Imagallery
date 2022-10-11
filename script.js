@@ -17,11 +17,11 @@ let currentSlideIndex = 0;
 const commonClass = 'overflow-hidden flex justify-center items-center text-5xl transition-all absolute rounded-2xl cursor-pointer shadow-xl select-none'
 const leftSlideDisappearClass = `${commonClass} duration-[${duration}ms] w-[10%] h-[10%] -left-[10%] top-[50%] -translate-x-[50%] -translate-y-[50%] opacity-0`;
 const leftSlideClass = `${commonClass} duration-[${duration}ms] w-[10%] h-[10%] left-[10%] top-[50%] -translate-x-[50%] -translate-y-[50%] opacity-50`;
-const centerSlideClass = `${commonClass} duration-[${duration}ms] w-[60%] h-[60%] left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] z-10`;
+const centerSlideClass = `${commonClass} duration-[${duration}ms] w-[60%] h-[60%] left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] z-10 `;
 const rightSlideClass = `${commonClass} duration-[${duration}ms] w-[10%] h-[10%] left-[90%] top-[50%] -translate-x-[50%] -translate-y-[50%] opacity-50`;
 const rightSlideDisappearClass = `${commonClass} duration-[${duration}ms] w-[10%] h-[10%] left-[110%] top-[50%] -translate-x-[50%] -translate-y-[50%] opacity-0`;
 
-const centerSlideZoomedClass = `${commonClass} duration-[${duration}ms] w-[100%] h-[100%] left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] z-10 rounded-none`;
+const centerSlideZoomedClass = `${commonClass} duration-[${duration}ms] w-[100%] h-[100%] left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] z-10 rounded-none shadow-none`;
 
 const imgClass = `h-full w-full object-cover pointer-events-none`;
 
@@ -39,10 +39,23 @@ const assignEventListeners = () => {
     centerDiv.replaceWith(clone)
     clone.addEventListener('click', (e)=>{
         const elem = e.target;
-        if (elem.classList == centerSlideZoomedClass) elem.classList = centerSlideClass;
+        if (elem.classList == centerSlideZoomedClass) {
+            elem.classList.add('opacity-0')
+            setTimeout(() => {
+                elem.querySelector('img').classList.replace('object-contain', 'object-cover')
+                elem.classList = centerSlideClass;
+                elem.classList.remove('opacity-0')
+            }, 300);
+
+        }
         else { 
-            elem.querySelector('img').src = slides[currentSlideIndex].largeImageURL;
-            elem.classList = centerSlideZoomedClass; 
+            elem.classList.add('opacity-0')
+            setTimeout(() => {
+                elem.querySelector('img').src = slides[currentSlideIndex].largeImageURL;
+                elem.querySelector('img').classList.replace('object-cover', 'object-contain')
+                elem.classList.remove('opacity-0')
+                elem.classList = centerSlideZoomedClass; 
+            }, 300);
         }
      })
 
