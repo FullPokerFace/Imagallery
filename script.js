@@ -196,16 +196,6 @@ const reload = () => {
 }
 
 
-nextBtn.addEventListener('click', showNext)
-prevBtn.addEventListener('click', showPrev)
-searchForm.addEventListener('submit', search)
-copyLinkBtn.addEventListener('click', copyLink)
-downloadBtn.addEventListener('click', download)
-reloadBtn.addEventListener('click', reload)
-
-// Make Initial Search
-search()
-
 // Resize hack for mobile Safari for 100vh
 const resizeVh = () => {
     let vh = window.innerHeight * 0.01;
@@ -213,5 +203,19 @@ const resizeVh = () => {
 }
 resizeVh();
 //
+
+
+
+nextBtn.addEventListener('click', showNext)
+prevBtn.addEventListener('click', showPrev)
+searchForm.addEventListener('submit', search)
+copyLinkBtn.addEventListener('click', copyLink)
+downloadBtn.addEventListener('click', download)
+reloadBtn.addEventListener('click', reload)
+document.body.addEventListener('resize', resizeVh)
+
+// Make Initial Search
+search()
+
 
 
