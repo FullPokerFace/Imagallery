@@ -147,7 +147,7 @@ const search = async (e) => {
         searchTerm = data[0]
     }
 
-    const response = await fetch(`https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&q=${searchTerm.split(' ').join('+')}&image_type=photo&pretty=true`)
+    const response = await fetch(`https://pixabay.com/api/?key=14648474-f85b08a1dc4b9a00f47b281de&q=${searchTerm.split(' ').join('+')}&image_type=photo&pretty=true`)
     const data = await response.json()
     if (data.hits.length === 0)
     {
