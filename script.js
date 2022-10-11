@@ -39,23 +39,25 @@ const assignEventListeners = () => {
     centerDiv.replaceWith(clone)
     clone.addEventListener('click', (e)=>{
         const elem = e.target;
+        const backDiv = document.createElement('div');
+        backDiv.id = 'backDrop'
+        backDiv.className = 'absolute bg-black left-0 top-0 right-0 bottom-0 opacity-90 z-[2]';
+
         if (elem.classList == centerSlideZoomedClass) {
+            document.getElementById('backDrop').remove()
             elem.classList.add('opacity-0')
-            setTimeout(() => {
-                elem.querySelector('img').classList.replace('object-contain', 'object-cover')
-                elem.classList = centerSlideClass;
-                elem.classList.remove('opacity-0')
-            }, 300);
+            elem.querySelector('img').classList.replace('object-contain', 'object-cover')
+            elem.classList = centerSlideClass;
+            elem.classList.remove('opacity-0')
 
         }
         else { 
+            document.body.append(backDiv)
             elem.classList.add('opacity-0')
-            setTimeout(() => {
-                elem.querySelector('img').src = slides[currentSlideIndex].largeImageURL;
-                elem.querySelector('img').classList.replace('object-cover', 'object-contain')
-                elem.classList.remove('opacity-0')
-                elem.classList = centerSlideZoomedClass; 
-            }, 300);
+            elem.querySelector('img').src = slides[currentSlideIndex].largeImageURL;
+            elem.querySelector('img').classList.replace('object-cover', 'object-contain')
+            elem.classList.remove('opacity-0')
+            elem.classList = centerSlideZoomedClass; 
         }
      })
 
