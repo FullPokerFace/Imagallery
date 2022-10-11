@@ -68,6 +68,7 @@ const assignEventListeners = () => {
 
 const showNext = () => {
     if (!window.animatingSlides){
+        document.getElementById('backDrop').remove()
         currentSlideIndex++;
         if(currentSlideIndex > slides.length - 1 ) currentSlideIndex = 0;
         window.animatingSlides = true;
@@ -92,6 +93,7 @@ const showNext = () => {
 }
 const showPrev = () => {
     if (!window.animatingSlides){
+        document.getElementById('backDrop').remove()
         window.animatingSlides = true;
         currentSlideIndex--;
         if(currentSlideIndex < 0 ) currentSlideIndex = slides.length - 1 ;
