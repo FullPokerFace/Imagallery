@@ -75,6 +75,11 @@ const assignEventListeners = () => {
     clone.addEventListener('click', showNext)
 }
 
+const setImagesToObjectCover = () => {
+    const images = imgContainerDiv.querySelectorAll('img');
+    images.forEach( img => img.classList.replace('object-contain', 'object-cover'))
+}
+
 const showNext = () => {
     if (!window.animatingSlides){
         removeBackDrop()
@@ -97,6 +102,7 @@ const showNext = () => {
             imgContainerDiv.querySelectorAll('div')[0].remove()
             window.animatingSlides = false;
             assignEventListeners()
+            setImagesToObjectCover()
         }, duration);
     }
 }
