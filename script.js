@@ -128,6 +128,7 @@ const showPrev = () => {
             imgContainerDiv.querySelectorAll('div')[3].remove()
             window.animatingSlides = false;
             assignEventListeners()
+            setImagesToObjectCover()
         }, duration);
     }
 }
