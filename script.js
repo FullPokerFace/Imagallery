@@ -201,18 +201,12 @@ const copyLink = () => {
 }
 
 const download = () => {
-    console.log(imgContainerDiv.querySelectorAll('div')[1].querySelector('img'))
-    imgContainerDiv.querySelectorAll('div')[1].querySelector('img').dispatchEvent(new Event("mousedown"));
-    setTimeout(()=> {
-        imgContainerDiv.querySelectorAll('div')[1].querySelector('img').dispatchEvent(new Event("mouseup"));
-        console.log('done')
-    }, 2000)
-    // const downloadLink = document.createElement('a');
-    // downloadLink.href = slides[currentSlideIndex].largeImageURL;
-    // downloadLink.download = slides[currentSlideIndex].largeImageURL;
-    // document.body.append(downloadLink);
-    // downloadLink.click();
-    // downloadLink.remove()
+    const downloadLink = document.createElement('a');
+    downloadLink.href = slides[currentSlideIndex].largeImageURL;
+    downloadLink.download = slides[currentSlideIndex].largeImageURL;
+    document.body.append(downloadLink);
+    downloadLink.click();
+    downloadLink.remove()
 }
 
 const reload = () => {
